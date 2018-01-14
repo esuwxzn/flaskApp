@@ -1,7 +1,7 @@
 body {
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #eee;
+  background-color: #fff;
 }
 
 .form-signin {
@@ -38,9 +38,5 @@ body {
 }
 
 .postion_form{
-
   margin-top: 100px;
-
-
-
 }

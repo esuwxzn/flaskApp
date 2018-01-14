@@ -7,22 +7,73 @@ from passlib.hash import sha256_crypt
 app = Flask(__name__)
 app.debug = True
 
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_DB'] = 'USERS'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
-@app.route('/')
-def index():
-    #return "Hello World! with debug flag is true xxxx"
-    return render_template('login.html')
-    #return render_template('index.html')
+mysql = MySQL(app)
 
-# @app.route('/test1')
-# def test1():
-#     #return "Hello World! with debug flag is true xxxx"
-#     return render_template('test1.html')
 
-# @app.route('/test2')
-# def test2():
-#     #return "Hello World! with debug flag is true xxxx"
-#     return render_template('test2.html')
+
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    
+    if request.method == 'POST': 
+        username = request.form['username']
+        password_candidate = request.form['password']
+        
+        # print password_candidate
+        
+        # Create cursor
+        cur = mysql.connection.cursor()
+
+        # Get user by username
+        result = cur.execute("SELECT * FROM userlist WHERE username = %s", [username])
+
+
+        if result > 0:
+            # Get stored hash
+            data = cur.fetchone()
+            password = data['password']
+
+            # Compare Passwords
+            if password == password_candidate:
+                # # Passed
+                # session['logged_in'] = True
+                # session['username'] = username
+
+                # flash('You are now logged in', 'success')
+                # return redirect(url_for('dashboard'))
+                return 'Success!'
+
+            else:
+                return 'Fail!'
+                # error = 'Invalid login'
+                # return render_template('login.html', error=error)
+            # Close connection
+            cur.close()
+        else:
+            return 'Cannot find the user!'
+            # error = 'Username not found'"
+            # return render_template('login.html', error=error)
+
+        # return result 
+    else:
+        return render_template('login.html')
+
+    
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+@app.route('/customer')
+def customer():
+    return render_template('customer.html')
+
+
 
 class userFrom(Form):
     username = StringField('Username', [validators.Length(min=1, max=30, message=None)])
@@ -31,20 +82,7 @@ class userFrom(Form):
         #validators.DataRequired(),
         validators.Length(min=6, max=20)])
 
-@app.route('/login')
-def register():
-    form = RegisterForm(request.form)
-    if request.methon == 'POST' and form.validate():
-    	
-        return
-
-
-
 
 if __name__ == '__main__':
     #app.run(debug = True)
     app.run()
-
-
-
-
