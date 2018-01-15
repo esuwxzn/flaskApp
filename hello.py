@@ -73,14 +73,11 @@ def home():
 def customer():
     return render_template('customer.html')
 
+@app.route('/customer/2/')
+def customer_info():
+    return render_template('customer_info.html')
 
 
-class userFrom(Form):
-    username = StringField('Username', [validators.Length(min=1, max=30, message=None)])
-    password = PasswordField('Password', [
-        validators.DataRequired(),
-        #validators.DataRequired(),
-        validators.Length(min=6, max=20)])
 
 
 if __name__ == '__main__':
