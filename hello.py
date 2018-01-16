@@ -73,9 +73,9 @@ def home():
 def customer():
     return render_template('customer.html')
 
-@app.route('/customer/2/')
-def customer_info():
-    return render_template('customer_info.html')
+@app.route('/customer/<string:cif>/')
+def customer_info(cif):
+    return render_template('customer_info.html', CIF = cif)
 
 
 
