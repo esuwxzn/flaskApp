@@ -77,7 +77,9 @@ def customer():
 def customer_info(cif):
     return render_template('customer_info.html', CIF = cif)
 
-
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 
 if __name__ == '__main__':

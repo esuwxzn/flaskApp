@@ -1,0 +1,28 @@
+{% extends 'homelayout.html' %}
+
+
+{% block body %}
+	
+    <div class="container" style="margin-top: 200px;">
+      <div class="col"></div>
+      
+      <div class="col">
+        <div class="row">
+          <div class="dropdown">
+
+            <select class="form-control class=selectpicker">
+              <option>CIF</option>
+              <option>Customer Name</option>
+              <option>Account Number</option>
+              <option>Tax Code</option>
+            </select>
+
+          </div>
+          <input type="input" name="criteria">
+          <button class="btn btn-primary">Search</button>
+        </div>
+      </div>
+      
+      <div class="col"></div>
+    </div>
+{% endblock %}
