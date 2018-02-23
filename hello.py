@@ -42,6 +42,14 @@ class searchForm(Form):
 
 
 
+class timeForm(Form):
+    startTime = StringField('From', validators=[DataRequired()], render_kw = {"class": "form-control" , "placeholder" : "Start Date..."})
+    endTime = StringField('To', validators=[DataRequired()], render_kw = {"class": "form-control" , "placeholder" : "End Date..."})
+
+
+
+
+
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -126,6 +134,37 @@ def customer():
 
 
     return render_template('customer.html', form = form)
+
+
+
+@app.route('/tax', methods=('GET', 'POST'))
+def tax():
+    form = timeForm(request.form)
+    
+    if request.method == 'POST' and form.validate():
+        startTime = form.startTime.data
+        endTime = form.endTime.data
+
+        print startTime
+        print endTime
+
+    #     # Create cursor
+    #     cur = mysql.connection.cursor()
+    #     # Execute query
+    #     cur.execute("SELECT * FROM TEST_FLASK WHERE ID = %s", keyword)
+    #     data = cur.fetchone()
+    #     print data['DESCRIPTION']
+
+    #     # Commit to DB
+    #     # mysql.connection.commit()
+
+    #     # Close connection
+    #     cur.close()
+
+
+
+
+    return render_template('tax.html', form=form)
 
 
 

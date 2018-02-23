@@ -3,49 +3,41 @@
 
 {% block body %}
 	
-<!-- <div class="jumbotron" style="margin-top: 150px; text-align: center;"> -->
-  <div class="container" style="margin-top: 150px;">
-    <form method="POST" action="">
+<div class="container" style="margin-top: 150px;">
+  <form method="POST" action="">
+  
+    <div class="row">
+      <div class="col-md-3"></div>
     
-      <div class="row">
-        <div class="col-md-3"></div>
-      
-        <div class="col-md-6">  
-          <div class="input-group mb-1">
-            
-            <div class="row">
-              <div class="col-md-5">
-                <!-- <select class="custom-select" data-style="btn-primary"> -->
-<!--                 <select class="custom-select" data-style="btn-primary">
-                  <option selected value="CIF">CIF</option>
-                  <option value="Account_Number">Account Number</option>
-                  <option value="Customer_Name">Customer Name</option>
-                  <option value="Tax_Number">Tax Number</option>
-                </select>
- -->            {{ form.infoType }}  
-              </div>
-
-              <div class="col-md-6">
-                <!-- <input type="text" class="form-control" aria-label="" placeholder="Please input keywords..."> -->
-                {{ form.keyword }}
-              </div>
-
-              <div class="col-md-1 input-group-append">
-                <input type="submit" name="Submit" value="Search" class="btn btn-primary" action>
-              </div>
-
-
+      <div class="col-md-6">  
+        <div class="input-group mb-1">
+          
+          <div class="row">
+            <div class="col-md-5">
+              {{ form.infoType }}  
             </div>
 
-          </div>        
-        </div>
+            <div class="col-md-6">
+              <!-- <input type="text" class="form-control" aria-label="" placeholder="Please input keywords..."> -->
+              {{ form.keyword }}
+            </div>
 
-        <div class="col-md-3"></div>
+            <div class="col-md-1 input-group-append">
+              <input type="submit" name="Submit" value="Search" class="btn btn-primary" action>
+            </div>
 
+
+          </div>
+
+        </div>        
       </div>
 
-    </form>    
-  </div>
+      <div class="col-md-3"></div>
+
+    </div>
+
+  </form>    
+</div>
 <!-- </div> -->
 
 {% endblock %}
