@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-light fixed-top">
+      <!-- <a class="navbar-brand" style="color: black" href="/"><h3>斯德哥尔摩分行内部控制与信息管理平台</h3></a> -->
+      <img src="{{url_for('.static',_external=True,filename='images/boclogo.png')}}" alt="BOC Logo" class="img-rounded" style="width: 100px; height: 90px; margin-left: 180px;">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+ 
+       <ul class="nav nav-pills">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="  ">信息管理与维护</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="customer">客户信息管理</a>
+              <a class="dropdown-item" href="transaction">交易信息管理</a>
+              <a class="dropdown-item" href="loan">存/贷款管理</a>
+              <a class="dropdown-item" href="#">流动性管理</a>
+              <a class="dropdown-item" href="#">预算统计与管理</a>
+              <a class="dropdown-item" href="#">员工绩效管理</a>
+
+<!--               <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+ -->
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">任职资格与合规测试</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">制度发布与查询</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">辅助功能</a>
+          </li>
+
+        </ul>
+
+
+
+<!--         <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2 " type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+ -->      </div>
+</nav>

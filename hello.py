@@ -114,9 +114,19 @@ def customer():
                 # Create cursor
         cur = mysql.connection.cursor()
         # Execute query
-        cur.execute("SELECT * FROM TEST_FLASK WHERE ID = %s", keyword)
-        data = cur.fetchone()
-        print data['DESCRIPTION']
+        # cur.execute("SELECT * FROM TEST_FLASK WHERE ID = %s", keyword)
+        cur.execute("SELECT * FROM TEST_FLASK")        
+        data = cur.fetchall()
+        # print data['DESCRIPTION']
+        print data[0];
+        print data[1];
+        print data[2];
+        print data[3];
+        print data[4];
+        print len(data)
+
+
+
 
         # Commit to DB
         # mysql.connection.commit()
@@ -124,9 +134,9 @@ def customer():
         # Close connection
         cur.close()
 
-        flash('You are now registered and can log in', 'success')
+        # flash('You are now registered and can log in', 'success')
 
-        return redirect(url_for('login'))
+        return render_template('customer_info.html', data = data)
 
 
 
@@ -183,9 +193,9 @@ def test():
 
 
 
-@app.route('/customer/<string:cif>/')
-def customer_info(cif):
-    return render_template('customer_info.html', CIF = cif)
+# @app.route('/customer/<string:cif>/')
+# def customer_info(cif):
+#     return render_template('customer_info.html', CIF = cif)
 
 # @app.route('/test')
 # def test():
