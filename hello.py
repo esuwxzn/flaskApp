@@ -8,6 +8,8 @@ from wtforms.fields import (StringField, PasswordField, DateField, BooleanField,
                             RadioField, IntegerField, DecimalField, SubmitField)
 from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange, Regexp
 
+
+from taxReportStatistic import taxReportStatistic
 #Test ssh
 
 
@@ -147,8 +149,8 @@ def customer():
 
 
 
-@app.route('/tax', methods=('GET', 'POST'))
-def tax():
+@app.route('/tax-report', methods=('GET', 'POST'))
+def generateTaxReport():
     form = timeForm(request.form)
     
     if request.method == 'POST' and form.validate():
@@ -158,23 +160,26 @@ def tax():
         print startTime
         print endTime
 
-    #     # Create cursor
-    #     cur = mysql.connection.cursor()
-    #     # Execute query
-    #     cur.execute("SELECT * FROM TEST_FLASK WHERE ID = %s", keyword)
-    #     data = cur.fetchone()
-    #     print data['DESCRIPTION']
+        # # Create cursor
+        # cur = mysql.connection.cursor()
+        # # Execute query
+        # cur.execute("SELECT * FROM TEST_FLASK WHERE ID = %s", keyword)
+        # data = cur.fetchall()
 
-    #     # Commit to DB
-    #     # mysql.connection.commit()
+        report = taxReportStatistic()
+        report.run(startTime, endTime)
 
-    #     # Close connection
-    #     cur.close()
+        # Commit to DB
+        # mysql.connection.commit()
+
+        # Close connection
+        # cur.close()
 
 
 
 
-    return render_template('tax.html', form=form)
+    return render_template('tax-report.html', form=form)
+
 
 
 
