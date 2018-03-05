@@ -12,6 +12,11 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange
 from taxReportStatistic import taxReportStatistic
 #Test ssh
 
+# from requestHandler import requestHandler
+
+
+
+# requestHandler = requestHandler()
 
 app = Flask(__name__)
 app.debug = True
@@ -31,6 +36,15 @@ mysql = MySQL(app)
 #     TaxNumber = StringField('Tax Number', [validators.Length(min=1, max=10)])
     
 
+class retrieveData(object):
+    # def __init__(self, arg):
+    #     super(data, self).__init__()
+    #     self.arg = arg
+    
+
+
+        
+
 class searchForm(Form):
 
     infoType = SelectField('infoType', choices=[
@@ -48,6 +62,10 @@ class timeForm(Form):
     startTime = StringField('From', validators=[DataRequired()], render_kw = {"class": "form-control" , "placeholder" : "Start Date..."})
     endTime = StringField('To', validators=[DataRequired()], render_kw = {"class": "form-control" , "placeholder" : "End Date..."})
 
+
+class loginForm(Form):
+    username = StringField('Username', validators=[DataRequired()], render_kw = {"class": "form-control" , "placeholder" : "Username..."})
+    password = StringField('Password', validators=[DataRequired()], render_kw = {"class": "form-control" , "placeholder" : "Password..."})    
 
 
 
@@ -105,6 +123,9 @@ def login():
 @app.route('/home')
 def home():
     return render_template('home.html')
+# requestHandler.home()
+
+
 
 @app.route('/customer', methods=['GET', 'POST'])
 def customer():
@@ -166,14 +187,39 @@ def generateTaxReport():
         # cur.execute("SELECT * FROM TEST_FLASK WHERE ID = %s", keyword)
         # data = cur.fetchall()
 
-        report = taxReportStatistic()
-        report.run(startTime, endTime)
+        # report = taxReportStatistic()
+        # report.run(startTime, endTime)
 
         # Commit to DB
         # mysql.connection.commit()
 
         # Close connection
         # cur.close()
+        cur = mysql.connection.cursor()
+        # Execute query
+        # cur.execute("SELECT * FROM TEST_FLASK WHERE ID = %s", keyword)
+        cur.execute("SELECT * FROM TEST_FLASK")        
+        data = cur.fetchall()
+        # print data['DESCRIPTION']
+        print data[0];
+        print data[1];
+        print data[2];
+        # print data[3];
+        # print data[4];
+        # print len(data)
+
+
+
+
+        # Commit to DB
+        # mysql.connection.commit()
+
+        # Close connection
+        cur.close()
+
+
+
+        return render_template('tax.html', data=data)
 
 
 
@@ -185,14 +231,31 @@ def generateTaxReport():
 
 @app.route('/test', methods=('GET', 'POST'))
 def test():
-    form = searchForm()
-    # if form.validate_on_submit():
-
-
-    print form.job.data
+    form = timeForm(request.form)
     
-    if form.job.data == 'cif':
-        return 'Admin login successfully!'
+    if request.method == 'POST' and form.validate():
+        startTime = form.startTime.data
+        endTime = form.endTime.data
+
+        print startTime
+        print endTime
+
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM TEST_FLASK")        
+        data = cur.fetchall()
+        # print data['DESCRIPTION']
+        print data[0];
+        print data[1];
+        print data[2];
+
+        # Commit to DB
+        # mysql.connection.commit()
+
+        # Close connection
+        cur.close()
+
+        return render_template('tax.html', data=data)
+
 
     return render_template('test.html', form=form)
 

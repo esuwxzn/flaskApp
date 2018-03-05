@@ -52,13 +52,15 @@ class fileGenerator:
         sheet = self.wb.worksheets[index]
         sheet.title = titleToReport 
         self.writeDataToSheet(dataToReport, sheet, header)
+        print header
 
         index += 1
         self.wb.create_sheet()
         sheet = self.wb.worksheets[index]
         sheet.title = titleToManual
         self.writeDataToSheet(dataToManual, sheet, header)
-
+        print header
+        
         #filename = r'./%s' % filename
         print filename
         self.wb.save(r'./%s' % filename)
