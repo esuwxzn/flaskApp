@@ -36,11 +36,11 @@ mysql = MySQL(app)
 #     TaxNumber = StringField('Tax Number', [validators.Length(min=1, max=10)])
     
 
-class retrieveData(object):
+# class retrieveData(object):
     # def __init__(self, arg):
     #     super(data, self).__init__()
     #     self.arg = arg
-    
+
 
 
         
@@ -219,7 +219,7 @@ def generateTaxReport():
 
 
 
-        return render_template('tax.html', data=data)
+        return render_template('tax-report-outward.html', data=data)
 
 
 
