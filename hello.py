@@ -173,6 +173,8 @@ def customer():
 @app.route('/tax-report', methods=('GET', 'POST'))
 def generateTaxReport():
     form = timeForm(request.form)
+    print request.form.get('Remittance')
+    # print request.form['Remittance']
     
     if request.method == 'POST' and form.validate():
         startTime = form.startTime.data
