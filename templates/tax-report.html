@@ -16,52 +16,34 @@
         </div>
 
         <form method="POST" role='form' action="">
+
           <div class="row">
-            <div class="col-md-1 text-right">
-              <span class="input-group-addon">From:</span>
-            </div>
+            <div class="col-md-1 input-group-addon text-right">From:</div>
             <div class="col-md-5">
-              {{ form.startTime }}
+              <input type="input" name="startTime" class="form-control">
             </div>
-
-            <div class="col-md-1 text-right">To:</div>
-              <div class="col-md-5">
-                {{ form.endTime }}
-              </div>
+            
+            <div class="col-md-1 input-group-addon text-right">To:</div>
+            <div class="col-md-5">
+              <input type="input" name="endTime" class="form-control">
             </div>
-            <br>
-            <div class="col-md-1"></div>
           </div>
-
-          <div class="input-group">
-            <div class="container">
-              <div class="row">
-                <div class="col-md-3 text-left">
-                  <input type="radio" name="Remittance" value='inward'><label>Inward Remittance</label>
-                </div>
-                <div class="col-md-4 text-left">
-                  <input type="radio" name="Remittance" value='outward'><label>Outward Remittance</label>        
-                </div>
-
-                <div class="col-md-5 text-right">
-                  <input type="submit" name="Submit" value="Generate" class="btn btn-primary" action=''>  
-                </div>
-
-              </div>
-
+          
+          <br>
+          <div class="row">
+            <div class="col-md-3 text-left">
+              <input type="radio" name="Remittance" value='inward'><label>Inward Remittance</label>
+            </div>
+            <div class="col-md-4 text-left">
+              <input type="radio" name="Remittance" value='outward'><label>Outward Remittance</label>        
             </div>
 
-          </div>
+            <div class="col-md-5 text-right">
+              <input type="submit" name="Submit" value="Generate" class="btn btn-primary" action=''>  
+            </div>
+          </div>              
         </form>
       </div>
-
-
-
-<!-- class="input-group-addon" -->
-
-
-
-
 
 
 

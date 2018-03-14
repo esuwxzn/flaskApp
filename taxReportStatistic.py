@@ -12,12 +12,23 @@ from sqlDatabaseConf import databaseList
 
 class taxReportStatistic:
 
-    def __init__(self):
+    def __init__(self, start, end, remittance):
         #self.fileGenerator = fileGenerator()
 
         self.data = taxStatisticData()
         self.processedTransData = processedTransactionData()
         self.database = databaseList()
+        self.remittance = remittance
+
+        self.database.transaction.inwardTable = 'inward_' + start
+        self.database.transaction.outwardTable = 'outward_' + start
+
+        self.start = start
+        self.end = end
+        self.remittance = remittance
+        print self.database.transaction.inwardTable
+        print self.database.transaction.outwardTable
+
 
 #    def generateQuerySQL(self, table, queryType):
     def generateQuerySQL(self, **queryInfo):
@@ -92,9 +103,9 @@ class taxReportStatistic:
         #self.customerInfoData = self.queryData('CUSTOMERINFO')
 
 
-    def processData(self, data):
+    def processData(self, data, start, end, remittance):
         
-        dp = dataProcessor(data)
+        dp = dataProcessor(data, start, end, remittance)
         self.processedTransData = dp.run()
 
 
@@ -103,8 +114,18 @@ class taxReportStatistic:
         fg = fileGenerator(data)
         fg.run()
 
-    def run(self, start, end):#Start time and end time is not handled here.
+    def run(self):#Start time and end time is not handled here.
 
         self.retrieveData()
-        self.processData(self.data)
-        self.writeDataToFile(self.processedTransData)
+        self.processData(self.data, self.start, self.end, self.remittance)
+
+        if self.remittance == 'inward':
+            return self.processedTransData.inwardData
+
+        if self.remittance == 'outward':
+            # print self.processedTransData.outwardData.dataToReport
+            return self.processedTransData.outwardData
+
+
+
+        # self.writeDataToFile(self.processedTransData)

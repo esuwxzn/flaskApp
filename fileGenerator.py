@@ -17,10 +17,12 @@ class fileGenerator:
         sheet.append(header)
 
         keys = inputData.keys()
+        # print keys
         
         for key in keys:
             for row in inputData[key]:
                 sheet.append(row)
+                # print row
 
 
     def writeDataToFile(self, fileType):
@@ -52,14 +54,14 @@ class fileGenerator:
         sheet = self.wb.worksheets[index]
         sheet.title = titleToReport 
         self.writeDataToSheet(dataToReport, sheet, header)
-        print header
+        # print header
 
         index += 1
         self.wb.create_sheet()
         sheet = self.wb.worksheets[index]
         sheet.title = titleToManual
         self.writeDataToSheet(dataToManual, sheet, header)
-        print header
+        # print header
         
         #filename = r'./%s' % filename
         print filename

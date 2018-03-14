@@ -10,6 +10,11 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange
 
 
 from taxReportStatistic import taxReportStatistic
+
+from taxReportStatistic import taxReportStatistic
+
+
+
 #Test ssh
 
 # from requestHandler import requestHandler
@@ -172,62 +177,50 @@ def customer():
 
 @app.route('/tax-report', methods=('GET', 'POST'))
 def generateTaxReport():
-    form = timeForm(request.form)
-    print request.form.get('Remittance')
-    # print request.form['Remittance']
+    # form = timeForm(request.form)
+    # print request.form.get('Remittance')
+    # print request.form.get('startTime')
+    # print request.form.get('endTime')    
     
-    if request.method == 'POST' and form.validate():
-        startTime = form.startTime.data
-        endTime = form.endTime.data
+    # print request.form['Remittance']
+    dataToReport = []
+    
+    if request.method == 'POST':# and form.validate():
+        startTime = request.form.get('startTime')
+        endTime = request.form.get('endTime')
+        remittance = request.form.get('Remittance')
 
         print startTime
         print endTime
+        print remittance
 
-        # # Create cursor
-        # cur = mysql.connection.cursor()
-        # # Execute query
-        # cur.execute("SELECT * FROM TEST_FLASK WHERE ID = %s", keyword)
-        # data = cur.fetchall()
+        report = taxReportStatistic(startTime, endTime, remittance)
+        data = report.run()
+        # print data.keys()
 
-        # report = taxReportStatistic()
-        # report.run(startTime, endTime)
+        keys = data.dataToReport.keys()
+        # print keys
+
+        for key in keys:
+            for row in data.dataToReport[key]:
+                dataToReport.append(row)
+                # print row
 
         # Commit to DB
         # mysql.connection.commit()
 
         # Close connection
         # cur.close()
-        cur = mysql.connection.cursor()
-        # Execute query
-        # cur.execute("SELECT * FROM TEST_FLASK WHERE ID = %s", keyword)
-        cur.execute("SELECT * FROM TEST_FLASK")        
-        data = cur.fetchall()
-        # print data['DESCRIPTION']
-        print data[0];
-        print data[1];
-        print data[2];
-        # print data[3];
-        # print data[4];
-        # print len(data)
+
+        if remittance == 'outward':
+            return render_template('tax-report-outward.html', data=dataToReport)
+
+        if remittance == 'inward':
+            return render_template('tax-report-inward.html', data=dataToReport)
 
 
-
-
-        # Commit to DB
-        # mysql.connection.commit()
-
-        # Close connection
-        cur.close()
-
-
-
-        return render_template('tax-report-outward.html', data=data)
-
-
-
-
-    return render_template('tax-report.html', form=form)
-
+    # return render_template('tax-report.html', form=form)
+    return render_template('tax-report.html')
 
 
 

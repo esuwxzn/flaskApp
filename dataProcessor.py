@@ -9,11 +9,16 @@ import re
 
 class dataProcessor:
 
-    def __init__(self, inputData):
+    def __init__(self, inputData, start, end, remittance):
         self.inputData = inputData
         self.processedData = processedTransactionData()
         self.database = databaseList()
 
+        self.database.transaction.inwardTable = 'inward_' + start
+        self.database.transaction.outwardTable = 'outward_' + start
+        self.remittance = remittance
+        # print self.database.transaction.inwardTable
+        # print self.database.transaction.outwardTable
 
 
     def generateQuerySQL(self, **queryInfo):
@@ -218,6 +223,10 @@ class dataProcessor:
                 retrieveInfo = {'type':'EXCHANGERATE', 'valueDate': valueDate, 'currency':currency}
                 exchangeRate = self.retrieveData(**retrieveInfo)
                 SEK = float(amount) * exchangeRate
+
+                # print amount
+                # print exchangeRate
+                # print SEK
             elif currency == 'SEK':
                 SEK = amount
             else:
@@ -327,8 +336,11 @@ class dataProcessor:
 
 
     def distributeTransaction(self):
-        #self.processInwardData(self.inputData.inwardData)
-        self.processOutwardData(self.inputData.outwardData)
+        if self.remittance == 'inward':
+            self.processInwardData(self.inputData.inwardData)
+
+        if self.remittance == 'outward':
+            self.processOutwardData(self.inputData.outwardData)
     
     
     def run(self):

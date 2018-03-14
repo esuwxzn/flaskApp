@@ -4,6 +4,6 @@
 
 from taxReportStatistic import taxReportStatistic
 
-report = taxReportStatistic()
+report = taxReportStatistic('201703', '201709', 'inward')
 
-report.run(201707, 201709)
+report.run()
